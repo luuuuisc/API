@@ -22,11 +22,16 @@ public class RechargeService {
     @Autowired
     private ClientRepository clientRepository;  // Suponha que isso já esteja definido
 
+    @Autowired
     private RabbitTemplate rabbitTemplate;
 
     public void sendRechargeRequest(RechargeDTO recharge) {
-        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, recharge);
-        System.out.println("Recharge request sent to the queue.");
+        try {
+            rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, recharge);
+            System.out.println("Recharge request sent to the queue.");
+        } catch (Exception e) {
+            System.out.println("Failed to send recharge request: " + e.getMessage());
+        }
     }
 
     @Transactional
@@ -62,6 +67,8 @@ public class RechargeService {
         client.setBalance(client.getBalance() + amount);
         clientRepository.save(client);
     }
+
 }
+
 
 

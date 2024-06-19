@@ -3,12 +3,14 @@ package com.luiz.RecargaAlgar.Controller;
 import com.luiz.RecargaAlgar.Entity.Client;
 import com.luiz.RecargaAlgar.Service.ClientService;
 import com.luiz.RecargaAlgar.dto.ClientDTO;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/clients")
+@RequestMapping("/api/v1/clients")
+@Tag(name = "Client", description = "Controller for Client")
 public class ClientController {
 
     @Autowired
